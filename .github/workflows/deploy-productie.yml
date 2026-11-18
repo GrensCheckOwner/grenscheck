@@ -17,9 +17,9 @@ permissions:
 
 jobs:
   deploy-productie:
+    environment: productie
     if: github.actor == 'GrensCheckOwner' && inputs.bevestiging == 'JA' && github.ref == 'refs/heads/productie'
     runs-on: ubuntu-latest
-    
 
     steps:
       - name: Productiecode ophalen
