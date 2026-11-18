@@ -19,8 +19,8 @@ jobs:
   deploy-productie:
     if: github.actor == 'GrensCheckOwner' && inputs.bevestiging == 'JA' && github.ref == 'refs/heads/productie'
     runs-on: ubuntu-latest
-    environment: productie
     
+
     steps:
       - name: Productiecode ophalen
         uses: actions/checkout@v4
