@@ -40,7 +40,7 @@ export default function Lancering() {
         <Text style={styles.titel}>
           GRENS<Text style={styles.groen}>CHECK</Text>
         </Text>
-        <Text style={styles.slogan}>Weet wat je meeneemt.</Text>
+        
 
         <View style={styles.teller}>
           {blok(dagen, 'DAGEN')}
