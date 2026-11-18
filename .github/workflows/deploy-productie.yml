@@ -1,0 +1,47 @@
+
+name: GrensCheck productie publiceren
+
+on:
+  workflow_dispatch:
+    inputs:
+      bevestiging:
+        description: "Typ JA om productiepublicatie toe te staan"
+        required: true
+        type: choice
+        options:
+          - NEE
+          - JA
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-productie:
+    environment: productie
+    if: github.actor == 'GrensCheckOwner' && inputs.bevestiging == 'JA' && github.ref == 'refs/heads/productie'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Productiecode ophalen
+        uses: actions/checkout@v4
+        with:
+          ref: productie
+
+      - name: Node.js instellen
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Pakketten installeren
+        run: npm ci
+
+      - name: Productieversie bouwen
+        run: npx expo export --platform web
+        env:
+          EXPO_PUBLIC_APP_ENV: production
+
+      - name: Productiewebsite publiceren
+        run: npx eas-cli@latest deploy --prod --non-interactive
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
