@@ -32,3 +32,7 @@ jobs:
         run: npx eas-cli@latest deploy --alias grenscheck-test --non-interactive
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+      - name: AdSense-website publiceren
+        run: npx eas-cli@latest deploy --alias grenscheck-lancering --non-interactive
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
